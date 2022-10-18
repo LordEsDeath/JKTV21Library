@@ -15,7 +15,15 @@ import java.util.Set;
 
 public class App {
     private Scanner scanner = new Scanner(System.in);
-    private Book[] books = new Book[0];
+    private Book[] books;
+    private Reader[] readers;
+    
+    public App(){
+        books = new Book[0];
+        readers = new Reader[0];
+        testAddBook();
+        testAddReader();
+    }
     public void run(){
         
         boolean repeat = true;
@@ -27,7 +35,7 @@ public class App {
             System.out.println("3. Выдать книгу");
             System.out.println("4. Вернуть книгу");
             System.out.println("5. Список книг");
-            System.out.println("6. Список авторов");
+            System.out.println("6. Список читателей");
             System.out.print("Выберите номер функции: ");
             int task = scanner.nextInt();
             scanner.nextLine();
@@ -57,6 +65,7 @@ public class App {
                     break; 
                 case 3:          
                     System.out.println("3. Выдать книгу");
+                    addHistories(histotyManager.takeOnBook());
                     break; 
                 case 4:
                     System.out.println("4. Вернуть книгу");
@@ -65,7 +74,7 @@ public class App {
                     System.out.println("5. Список книг");
                     for (int i = 0; i < books.length; i++) {
                         Book book1=books[i];
-                        System.out.printf(i+" - "+1+". " +book1.getTitle());
+                        System.out.printf(i+1+". " +book1.getTitle());
                         for(int j =0;j<book1.getAuthor().length; j++){
                             System.out.printf("%s %s. %n",
                                     book1.getAuthor()[j].getFirstname(),
@@ -75,7 +84,16 @@ public class App {
                     }
                     break;
                 case 6:
-                    System.out.println("6. Список авторов");
+                    System.out.println("6. Список читателей");
+                    for (int i = 0; i < readers.length; i++) {
+                        reader = readers[i];
+                        System.out.printf("%d. %s %s%n Телефон: %s%n" 
+                                ,i+1
+                                ,readers[i].getFirstname()
+                                ,readers[i].getLastname()
+                                ,readers[i].getPhone()
+                        );
+                    }
                     break;
                 default:
                     System.out.println("Выберите номер функции из списка!");
@@ -92,5 +110,22 @@ public class App {
         author.setLastname(scanner.nextLine());
         
         return author;
+    }
+    private void testAddBook(){
+        Book book = new Book();
+        book.setTitle("Voina i mir");
+        Author author = new Author("Lev", "Tolstoy");
+        book.addAuthor(author);
+        this.books = Arrays.copyOf(books, books.length + 1);
+        this.books[this.books.length - 1] = book;
+        
+    }
+    private void testAddReader(){
+        Book book = new Book();
+        Reader reader = new Reader("Konstantin", "Kolpakov","51247522");
+        
+        readers = Arrays.copyOf(readers, readers.length + 1);
+        readers[readers.length - 1] = reader;
+        
     }
 }

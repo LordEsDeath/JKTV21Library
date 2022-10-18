@@ -12,6 +12,7 @@ package entity;
 public class Author {
     String firstname;
     String lastname;
+    String phone;
 
     public Author() {
     }
@@ -28,9 +29,17 @@ public class Author {
     public void setFirstname(String firstname) {
         this.firstname = firstname;
     }
+    
+     public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
     public String getLastname() {
         return lastname;
+    }
+    
+    public String getPhone() {
+        return phone;
     }
 
     public void setLastname(String lastname) {
