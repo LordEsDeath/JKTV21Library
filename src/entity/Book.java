@@ -32,7 +32,7 @@ public class Book {
         this.title = title;
     }
 
-    public Author[] getAuthor() {
+    public Author[] getAuthors() {
         return authors;
     }
 
@@ -50,5 +50,7 @@ public class Book {
     newAuthors[newAuthors.length-1]=author;
     this.authors = newAuthors;
     }
+
+   
     
 }

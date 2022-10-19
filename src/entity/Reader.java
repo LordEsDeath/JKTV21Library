@@ -10,9 +10,9 @@ package entity;
  * @author pupil
  */
 public class Reader {
-    String firstname;
-    String lastname;
-    String phone;
+    private String firstname;
+    private String lastname;
+    private String phone;
 
     public Reader(String firstname, String lastname, String phone) {
         this.firstname = firstname;
@@ -48,7 +48,7 @@ public class Reader {
 
     @Override
     public String toString() {
-        return "Reader{" + "firstname=" + firstname + ", lastname=" + lastname + '}';
+        return "Reader{" + "firstname=" + firstname + ", lastname=" + lastname + ", Phone"+ phone +'}';
     }
     
 }
