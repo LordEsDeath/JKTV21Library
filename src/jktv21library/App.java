@@ -9,10 +9,18 @@ import entity.Author;
 import entity.Book;
 import entity.History;
 import entity.Reader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.Arrays;
 import java.util.Scanner;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import managers.BookManager;
+import managers.DataManager;
 import managers.HistoryManager;
 import managers.ReaderManager;
 
@@ -22,25 +30,25 @@ public class App {
     private final BookManager bookManager;
     private final ReaderManager readerManager;
     private final HistoryManager historyManager;
+    private final DataManager dataManager;
     private Book[] books;
     private Reader[] readers;
     private History[] histories;
 
-    
-    public App(){
+    public App() {
         scanner = new Scanner(System.in);
         bookManager = new BookManager();
         readerManager = new ReaderManager();
         historyManager = new HistoryManager();
-        
-        books = new Book[0];
+        dataManager = new DataManager();
+        books = dataManager.loadBooksFromFile();
         readers = new Reader[0];
         histories = new History[0];
-        testAddBook();
+        //testAddBook();
         testAddReader();
     }
+    
     public void run(){
-        
         boolean repeat = true;
         do{
             System.out.println("Функции приложения:");
@@ -52,6 +60,8 @@ public class App {
             System.out.println("5. Список книг");
             System.out.println("6. Список читателей");
             System.out.println("7. Список выданных книг");
+            System.out.println("8. Изменить данные читателя");
+            System.out.println("9. Редактирование книги");
             System.out.print("Выберите номер функции: ");
             int task = scanner.nextInt();
             scanner.nextLine();
@@ -63,6 +73,7 @@ public class App {
                 case 1:
                     System.out.println("Выбрана задача: 1. Добавить книгу");
                     addBook(bookManager.createBook());
+                    dataManager.saveBooksToFile(books);
                     break;
                 case 2:
                     System.out.println("2. Добавить читателя");
@@ -87,6 +98,14 @@ public class App {
                 case 7:
                     System.out.println("7. Список выданных книг");
                     historyManager.printListReadingBooks(histories);
+                    break;
+                case 8:
+                    System.out.println("8. Изменить данные читателя");
+                    readers = readerManager.changeReader(readers);
+                    break;
+                case 9:
+                    System.out.println("9. Редактирование книги");
+                    books = bookManager.changeBook(books);
                     break;
                 default:
                     System.out.println("Выберите номер функции из списка!");
@@ -123,4 +142,7 @@ public class App {
         readers[readers.length - 1] = reader;
     }
 
+    
+
+    
 }
